@@ -1,22 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>  
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head> 
-<body>
-    <h1>TEST</h1>
-    <p>hello from the frontend</p>
-    <p><%= data %></p>
-</body>
-<style>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome | Guestbook App</title>
+  <style>
     body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        margin-top: 50px;
-        background-color: #f1cd9f;
+      margin: 0;
+      padding: 30px 15px;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      /* Background image with slight dark overlay for readability */
+      background: linear-gradient(rgba(15, 23, 42, 0.55), rgba(15, 23, 42, 0.55)),
+                  url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat fixed;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
     }
-</style>
+    .card {
+      background: rgba(255, 255, 255, 0.96);
+      width: 100%;
+      max-width: 480px;
+      padding: 30px;
+      border-radius: 16px;
+      /* Elevated shadow look */
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    }
+    h1 {
+      margin: 0 0 8px;
+      color: #1e293b;
+      font-size: 26px;
+      text-align: center;
+    }
+    .subtitle {
+      margin: 0 0 22px;
+      color: #64748b;
+      font-size: 14px;
+      text-align: center;
+    }
+    input, textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px;
+      margin-bottom: 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #2563eb;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+    .comments-section {
+      margin-top: 25px;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 18px;
+    }
+    .comments-section h3 {
+      margin: 0 0 12px;
+      font-size: 16px;
+      color: #334155;
+    }
+    .comment-box {
+      background: #f8fafc;
+      border-left: 4px solid #2563eb;
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .comment-box strong {
+      color: #0f172a;
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+    .comment-box p {
+      margin: 0;
+      color: #475569;
+      font-size: 13px;
+    }
+    .error {
+      color: #dc2626;
+      text-align: center;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Welcome to My App 🚀</h1>
+    <p class="subtitle">Share your name and feedback below (Powered by Express & Flask)</p>
+
+    <% if (error) { %>
+      <p class="error"><%= error %></p>
+    <% } %>
+
+    <form action="/submit" method="POST">
+      <input type="text" name="name" placeholder="Enter your name" required />
+      <textarea name="comment" rows="3" placeholder="Write your comment..." required></textarea>
+      <button type="submit">Submit Comment</button>
+    </form>
+
+    <div class="comments-section">
+      <h3>Recent Comments (<%= comments.length %>)</h3>
+      <% comments.forEach(function(item) { %>
+        <div class="comment-box">
+          <strong><%= item.name %></strong>
+          <p><%= item.comment %></p>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</body>
 </html>
