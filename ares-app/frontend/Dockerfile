@@ -1,13 +1,14 @@
 FROM node:20.5.0-slim
 
-ENV BACKEND_URL=http://0.0.0.0:4000
-
-ADD frontend /app
-
 WORKDIR /app
 
+COPY package*.json ./
 RUN npm install
 
-ENTRYPOINT ["npm"]
+COPY . .
 
-CMD ["start"]
+ENV BACKEND_URL=http://localhost:8000/api/comments
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
