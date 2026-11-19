@@ -1,13 +1,13 @@
-FROM python:3.11-slim-buster
-
-ADD backend/requirements.txt /app/requirements.txt
-
-RUN pip install -r /app/requirements.txt
-
-ADD backend /app
+FROM python:3.11-slim
 
 WORKDIR /app
 
-ENTRYPOINT ["python"]
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
+COPY . .
+
+EXPOSE 8000
+
+ENTRYPOINT ["python"]
 CMD ["app.py"]
